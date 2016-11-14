@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_recent_events"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.phili.rifletracker.RecentEvents">
 
     <Spinner
         android:layout_width="match_parent"
@@ -10,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="46dp"
-        android:id="@+id/spinner2" />
+        android:id="@+id/spinner" />
 
     <TextView
         android:text="@string/select_event"
@@ -20,23 +26,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:id="@+id/textSelectEvent" />
-
-    <Button
-        android:text="@string/buttonRecentEventsView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonRecentEventsView"
-        android:layout_marginTop="109dp"
-        android:layout_below="@+id/spinner2"
-        android:layout_alignEnd="@+id/textSelectEvent" />
-
-    <Button
-        android:text="@string/edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonRecentEventsEdit"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/textSelectEvent" />
 
     <Button
         android:text="@string/rename"
@@ -55,5 +44,23 @@
         android:layout_marginTop="16dp"
         android:layout_below="@+id/buttonRecentEventsRename"
         android:layout_alignStart="@+id/buttonRecentEventsRename" />
+
+    <Button
+        android:text="@string/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonRecentEventsEdit"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/buttonRecentEventsView" />
+
+    <Button
+        android:text="@string/view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonRecentEventsView"
+        android:layout_marginBottom="11dp"
+        android:layout_above="@+id/buttonRecentEventsEdit"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

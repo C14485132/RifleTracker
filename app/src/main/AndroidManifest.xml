@@ -15,6 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RecentEvents"/>
+        <activity android:name=".RecentEventEdit" />
+        <activity android:name=".RecentEventView" />
+        <activity android:name=".AddNewEvent" />
+        <activity android:name=".CurrentShooter" />
     </application>
 
 </manifest>
