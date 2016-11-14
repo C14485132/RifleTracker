@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">RifleTracker</string>
+    <string name="buttonReccentEventsView">Button</string>
+    <string name="buttonRecentEventsView">View</string>
+    <string name="select_event">Select event...</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="rename">Rename</string>
+    <string name="select_shooter">Select shooter...</string>
+    <string name="edit_score">Edit Score</string>
+    <string name="edit_rename">Rename</string>
+    <string name="edit_delete">Delete</string>
+    <string name="event_name">Event Name</string>
+    <string name="add_event">Add Event</string>
+    <string name="shooter_name">Shooter Name</string>
+    <string name="add_shooter">Add Shooter</string>
+    <string name="remove_most_recent_shooter">Remove Most Recent Shooter</string>
+    <string name="list_of_shooters">List of shooters:</string>
+    <string name="begin">Begin</string>
 </resources>
