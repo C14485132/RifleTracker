@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="46dp"
+        android:id="@+id/spinner2" />
+
+    <TextView
+        android:text="@string/select_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:id="@+id/textSelectEvent" />
+
+    <Button
+        android:text="@string/buttonRecentEventsView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonRecentEventsView"
+        android:layout_marginTop="109dp"
+        android:layout_below="@+id/spinner2"
+        android:layout_alignEnd="@+id/textSelectEvent" />
+
+    <Button
+        android:text="@string/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonRecentEventsEdit"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/textSelectEvent" />
+
+    <Button
+        android:text="@string/rename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonRecentEventsRename"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/buttonRecentEventsEdit"
+        android:layout_alignStart="@+id/buttonRecentEventsEdit" />
+
+    <Button
+        android:text="@string/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonRecentEventsDelete"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/buttonRecentEventsRename"
+        android:layout_alignStart="@+id/buttonRecentEventsRename" />
+
+</RelativeLayout>
