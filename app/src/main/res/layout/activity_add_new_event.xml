@@ -10,51 +10,28 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.phili.rifletracker.AddNewEvent">
 
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="@string/event_name"
+        android:hint="@string/event_name"
         android:ems="10"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="23dp"
-        android:id="@+id/editEventName"
         android:layout_alignParentStart="true"
+        android:id="@+id/tbEventName"
         android:layout_alignParentEnd="true" />
-
-    <Button
-        android:text="@string/add_shooter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editShooterName"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/button2" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="@string/shooter_name"
+        android:hint="@string/shooter_name"
         android:ems="10"
-        android:id="@+id/editShooterName"
-        android:layout_below="@+id/editEventName"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="@string/remove_most_recent_shooter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonRemoveMostRecent"
-        android:layout_below="@+id/editShooterName"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="@string/list_of_shooters"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonRemoveMostRecent"
+        android:layout_below="@+id/tbEventName"
         android:layout_alignParentStart="true"
-        android:id="@+id/textListOfShooters" />
+        android:id="@+id/tbShooterName"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:text="@string/begin"
@@ -64,12 +41,36 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/buttonBegin" />
 
+    <Button
+        android:text="@string/remove_most_recent_shooter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/buttonRemove" />
+
+    <Button
+        android:text="@string/add_shooter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonAddShooter"
+        android:layout_below="@+id/tbShooterName"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="@string/list_of_shooters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonAddShooter"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textListOfShooters" />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/textListOfShooters"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/buttonBegin" />
-
+        android:layout_above="@+id/buttonBegin"
+        android:id="@+id/listOfShooters" />
 
 </RelativeLayout>
