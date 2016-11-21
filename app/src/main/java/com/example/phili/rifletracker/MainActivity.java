@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(android.R.style.ThemeOverlay_Material);
         setContentView(R.layout.activity_main);
 
         Button btnRecentEvents = (Button)findViewById(R.id.buttonRecentEvents);
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnExportEvent =  (Button)findViewById(R.id.buttonExportEvent);
         Button btnSettings =  (Button)findViewById(R.id.buttonSettings);
 
+        //Recent events programming
         btnRecentEvents.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Add new event programming
         btnAddNewEvent.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -48,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         });
         */
 
-        /*TODO: Settings screen
-        btnAddNewEvent.setOnClickListener(new View.OnClickListener() {
+        //Settings programming
+        btnSettings.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        */
+
 
 
     }
