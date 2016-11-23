@@ -14,7 +14,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textCapWords"
         android:hint="@string/event_name"
         android:ems="10"
         android:layout_alignParentTop="true"
@@ -25,7 +25,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textCapWords"
         android:hint="@string/shooter_name"
         android:ems="10"
         android:layout_below="@+id/tbEventName"
@@ -42,7 +42,7 @@
         android:id="@+id/buttonBegin" />
 
     <Button
-        android:text="@string/remove_most_recent_shooter"
+        android:text="@string/remove_selected_shooter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
