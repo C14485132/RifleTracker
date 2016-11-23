@@ -33,17 +33,16 @@ public class AddNewEvent extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(android.R.style.ThemeOverlay_Material_Light);
         setContentView(R.layout.activity_add_new_event);
 
         //Initialising the onscreen elements
-        fieldEventName = (TextView) findViewById(R.id.tbEventName);
+        fieldEventName   = (TextView) findViewById(R.id.tbEventName);
         fieldShooterName = (TextView) findViewById(R.id.tbShooterName);
-        btnAddShooter = (Button) findViewById(R.id.buttonAddShooter);
-        listOfShooters = (ListView) findViewById(R.id.listOfShooters);
-        btnRemove = (Button) findViewById(R.id.buttonRemove);
-        btnBegin = (Button) findViewById(R.id.buttonBegin);
-        arrayOfShooters = new ArrayList<String>();
+        btnAddShooter    = (Button) findViewById(R.id.buttonAddShooter);
+        listOfShooters   = (ListView) findViewById(R.id.listOfShooters);
+        btnRemove        = (Button) findViewById(R.id.buttonRemove);
+        btnBegin         = (Button) findViewById(R.id.buttonBegin);
+        arrayOfShooters  = new ArrayList<String>();
 
 
         //Button event programming
@@ -71,7 +70,10 @@ public class AddNewEvent extends AppCompatActivity {
         btnBegin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Check to see if everything is good to go
+                if (fieldEventName.getText().toString().length() < 0 && adapter.getCount() < 0 ) {
 
+                }
             }
         });
 
