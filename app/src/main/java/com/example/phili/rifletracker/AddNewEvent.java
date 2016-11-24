@@ -39,19 +39,19 @@ public class AddNewEvent extends AppCompatActivity {
         btnAddShooter    = (Button) findViewById(R.id.buttonAddShooter);
         listOfShooters   = (ListView) findViewById(R.id.listOfShooters);
         btnBegin         = (Button) findViewById(R.id.buttonBegin);
-        arrayOfShooters  = new ArrayList<String>();
+        arrayOfShooters  = new ArrayList<>();
 
 
         //Button event programming
         btnAddShooter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //As long as there's something in hte
+                //As long as there's something in the Shooter field, add it
                 if (fieldShooterName.getText().toString().length() != 0) {
                     arrayOfShooters.add(fieldShooterName.getText().toString());
                 }
 
-                adapter = new ArrayAdapter<String>
+                adapter = new ArrayAdapter<>
                         (getApplicationContext(), R.layout.simple_list_item_1, arrayOfShooters);
                 listOfShooters.setAdapter(adapter);
                 fieldShooterName.setText("");
@@ -68,7 +68,15 @@ public class AddNewEvent extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
 
                 } else {
+                    //Bundle the variables and send them to the next activity
+                    Bundle bundle = new Bundle();
+                    Intent i = new Intent(getApplicationContext(),CurrentShooter.class);
 
+                    bundle.putString("eventName", fieldEventName.getText().toString());
+                    bundle.putStringArrayList("arrayOfShooters", arrayOfShooters);
+                    i.putExtras(bundle);
+
+                    startActivity(i);
                 }
             }
         });

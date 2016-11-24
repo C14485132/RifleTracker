@@ -21,10 +21,8 @@ public class Settings extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     setTheme(android.R.style.ThemeOverlay_Material_Dark);
-                    setContentView(R.layout.activity_settings);
                 } else {
-                    setTheme(android.R.style.Theme_Material);
-                    setContentView(R.layout.activity_settings);
+                    setTheme(android.R.style.ThemeOverlay_Material_Light);
                 }
             }
         });

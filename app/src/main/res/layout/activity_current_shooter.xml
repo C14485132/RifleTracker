@@ -10,4 +10,187 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.phili.rifletracker.CurrentShooter">
 
+    <TextView
+        android:text="@string/null_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textTally"
+        android:layout_marginStart="20dp"
+        android:id="@+id/textScore0" />
+
+    <TextView
+        android:text="@string/tally"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textTally"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/null_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textScore1"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textScore0" />
+
+    <TextView
+        android:text="@string/divider_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textDiv1"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textScore1" />
+
+    <TextView
+        android:text="@string/null_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textDiv1"
+        android:id="@+id/textScore2" />
+
+    <TextView
+        android:text="@string/null_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textScore2"
+        android:id="@+id/textScore3" />
+
+    <TextView
+        android:text="@string/divider_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textScore3"
+        android:id="@+id/textDiv2" />
+
+    <TextView
+        android:text="@string/null_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/textScore5"
+        android:layout_toEndOf="@+id/textScore4" />
+
+    <TextView
+        android:text="@string/null_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textScore4"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textDiv2" />
+
+    <TextView
+        android:text="@string/divider_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textScore5"
+        android:id="@+id/textDiv3" />
+
+    <TextView
+        android:text="@string/null_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textDiv3"
+        android:id="@+id/textScore6" />
+
+    <TextView
+        android:text="@string/null_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textScore6"
+        android:id="@+id/textScore7" />
+
+    <TextView
+        android:text="@string/divider_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textScore7"
+        android:id="@+id/textDiv4" />
+
+    <TextView
+        android:text="@string/null_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textScore8"
+        android:id="@+id/textScore9" />
+
+    <TextView
+        android:text="@string/null_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textScore8"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textDiv4" />
+
+    <TextView
+        android:text="@string/divider_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textScore9"
+        android:id="@+id/textDiv5" />
+
+    <TextView
+        android:text="@string/null_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textScoreTotal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="@string/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textTotal"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/textScoreTotal"
+        tools:ignore="RelativeOverlap" />
+
+    <Button
+        android:text="@string/miss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonKill"
+        android:height="200dp"
+        android:id="@+id/buttonMiss"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="@string/kill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonKill"
+        android:height="200dp"
+        android:layout_below="@+id/textScore0"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="@string/undo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/buttonUndo" />
+
+    <Button
+        android:text="@string/skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/buttonSkip"
+        tools:ignore="RelativeOverlap" />
+
 </RelativeLayout>
