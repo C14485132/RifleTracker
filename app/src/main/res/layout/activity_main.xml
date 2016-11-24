@@ -14,35 +14,37 @@
         android:text="@string/recent_events"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_heightPercent="20%"
+        android:id="@+id/buttonRecentEvents"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="82dp"
-        android:id="@+id/buttonRecentEvents" />
-
-    <Button
-        android:text="@string/add_new_event"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonRecentEvents"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
-        android:id="@+id/buttonAddNewEvent" />
+        android:layout_marginTop="67dp" />
 
     <Button
         android:text="@string/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/buttonSettings"
         android:layout_below="@+id/buttonExportEvent"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp"
-        android:id="@+id/buttonSettings" />
+        android:layout_marginTop="49dp" />
+
+    <Button
+        android:text="@string/add_new_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="25"
+        android:id="@+id/buttonAddNewEvent"
+        android:layout_marginTop="43dp"
+        android:layout_below="@+id/buttonRecentEvents"
+        android:layout_alignStart="@+id/buttonRecentEvents" />
 
     <Button
         android:text="@string/export_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
         android:id="@+id/buttonExportEvent"
+        android:layout_marginTop="44dp"
         android:layout_below="@+id/buttonAddNewEvent"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

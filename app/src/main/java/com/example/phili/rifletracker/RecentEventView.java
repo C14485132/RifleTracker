@@ -9,5 +9,6 @@ public class RecentEventView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recent_event_view);
+        setTitle("View recent event");
     }
 }

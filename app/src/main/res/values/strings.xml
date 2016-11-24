@@ -8,7 +8,7 @@
     <string name="edit_score">Edit Score</string>
     <string name="select_shooter">Select Shooter</string>
     <string name="begin">Begin</string>
-    <string name="list_of_shooters">List of shooters:</string>
+    <string name="list_of_shooters">List of shooters (tap to remove):</string>
     <string name="remove_selected_shooter">Remove selected shooter</string>
     <string name="shooter_name">Shooter Name</string>
     <string name="event_name">Event Name</string>

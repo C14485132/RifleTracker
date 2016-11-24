@@ -12,8 +12,8 @@ public class Settings extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(android.R.style.ThemeOverlay_Material);
         setContentView(R.layout.activity_settings);
+        setTitle("Settings");
 
         switchDarkMode = (Switch)findViewById(R.id.switchDarkMode);
 
