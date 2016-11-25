@@ -1,7 +1,6 @@
 package com.example.phili.rifletracker;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,8 +12,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.content.DialogInterface;
 import android.widget.Toast;
-
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class AddNewEvent extends AppCompatActivity {
 
@@ -33,7 +32,7 @@ public class AddNewEvent extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_event);
         setTitle("Add new event");
 
-        //Initialising the onscreen elements
+        //Initialising the elements
         fieldEventName   = (TextView) findViewById(R.id.tbEventName);
         fieldShooterName = (TextView) findViewById(R.id.tbShooterName);
         btnAddShooter    = (Button) findViewById(R.id.buttonAddShooter);
@@ -43,29 +42,49 @@ public class AddNewEvent extends AppCompatActivity {
 
 
         //Button event programming
+
         btnAddShooter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //As long as there's something in the Shooter field, add it
+                //As long as there's something in the Shooter field, add it to the arraylist
                 if (fieldShooterName.getText().toString().length() != 0) {
-                    arrayOfShooters.add(fieldShooterName.getText().toString());
+                    //Is it already in the list?
+                    if (arrayOfShooters.contains(fieldShooterName.getText().toString())) {
+                        //Display error
+                        Toast.makeText(getApplicationContext(), "Error: that name has already been added.",
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        //Then add the string to the ListView
+                        //Reversed twice to reverse it, add it to the end, then re-reverse it so
+                        //it's added to the top
+                        Collections.reverse(arrayOfShooters);
+                        arrayOfShooters.add(fieldShooterName.getText().toString());
+                        Collections.reverse(arrayOfShooters);
+                        adapter = new ArrayAdapter<>
+                                (getApplicationContext(), R.layout.simple_list_item_1, arrayOfShooters);
+                        listOfShooters.setAdapter(adapter);
+                        fieldShooterName.setText("");
+                    }
                 }
-
-                adapter = new ArrayAdapter<>
-                        (getApplicationContext(), R.layout.simple_list_item_1, arrayOfShooters);
-                listOfShooters.setAdapter(adapter);
-                fieldShooterName.setText("");
             }
         });
 
+        //Begin button takes the arrayview and name are populated, checks if the eventname already
+        //exists in the database, and then moves onto CurrentShooter
         btnBegin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //Check to see if everything is good to go
                 if (fieldEventName.getText().toString().length() == 0 || adapter.getCount() == 0) {
+
+                    //Let them know there needs to be at least one shooter
                     Toast.makeText(getApplicationContext(),
                             "Can't begin; make sure you set an event name and at least one shooter.",
                             Toast.LENGTH_LONG).show();
+
+                } else if (true) {
+                    //Check to see if the database has events with the same name first
 
                 } else {
                     //Bundle the variables and send them to the next activity

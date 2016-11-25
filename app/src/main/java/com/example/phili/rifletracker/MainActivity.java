@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,8 +26,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),RecentEvents.class);
-                startActivity(i);
+                //Launch RecentEvents
+                if (/*the database is empty*/ true) {
+                    Toast.makeText(getApplicationContext(), "Error: No events exist. Add a new" +
+                            "event before selecting this.",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    Intent i = new Intent(getApplicationContext(), RecentEvents.class);
+                    startActivity(i);
+                }
             }
         });
 
@@ -35,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                //Launch AddNewEvent
                 Intent i = new Intent(getApplicationContext(),AddNewEvent.class);
                 startActivity(i);
             }

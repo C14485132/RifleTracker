@@ -19,7 +19,7 @@
     <string name="recent_events">Recent Events</string>
     <string name="title_activity_settings">Settings</string>
     <string name="dark_mode">Dark Mode</string>
-    <string name="tally">Tally:</string>
+    <string name="tally">Tally:\u00A0\u00A0</string>
     <string name="null_score">- \u00A0</string>
     <string name="miss_score">O \u00A0</string>
     <string name="kill_score">X \u00A0</string>

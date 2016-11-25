@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/textTally"
-        android:layout_marginStart="20dp"
         android:id="@+id/textScore0" />
 
     <TextView
