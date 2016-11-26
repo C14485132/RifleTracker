@@ -20,13 +20,19 @@
     <string name="title_activity_settings">Settings</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="tally">Tally:\u00A0\u00A0</string>
-    <string name="null_score">- \u00A0</string>
-    <string name="miss_score">O \u00A0</string>
-    <string name="kill_score">X \u00A0</string>
-    <string name="divider_score">\u00A0 | \u00A0 \u00A0</string>
-    <string name="total">Total: \u00A0</string>
+    <string name="null_score">--\u00A0</string>
+    <string name="miss_score">O\u00A0</string>
+    <string name="kill_score">X\u00A0</string>
+    <string name="divider_score">\u00A0|\u00A0\u00A0</string>
+    <string name="total">Total:\u00A0</string>
     <string name="kill">Kill</string>
     <string name="miss">Miss</string>
     <string name="undo">Undo</string>
     <string name="skip">Skip</string>
+    <string name="round_3">R3:\u00A0\u00A0\u00A0</string>
+    <string name="round_2">R2:\u00A0\u00A0\u00A0</string>
+    <string name="round_1">R1:\u00A0\u00A0\u00A0</string>
+    <string name="empty">\u00A0\u00A0</string>
+    <string name="return_to_main_menu">Return to main menu</string>
+
 </resources>

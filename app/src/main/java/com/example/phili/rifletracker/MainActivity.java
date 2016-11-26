@@ -16,6 +16,10 @@ public class MainActivity extends AppCompatActivity {
         setTheme(android.R.style.ThemeOverlay_Material);
         setContentView(R.layout.activity_main);
 
+        //Create database
+        Database db = new Database(this);
+        db.close();
+
         Button btnRecentEvents = (Button)findViewById(R.id.buttonRecentEvents);
         Button btnAddNewEvent = (Button)findViewById(R.id.buttonAddNewEvent);
         Button btnExportEvent =  (Button)findViewById(R.id.buttonExportEvent);
@@ -49,16 +53,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /* TODO: Export screens
+        // TODO: Export screens
+        /*
         btnExportEvent.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),ExportEvent.class);
+                Intent i = new Intent(getApplicationContext(),RecentEventView.class);
                 startActivity(i);
             }
         });
         */
+
 
         //Settings programming
         btnSettings.setOnClickListener(new View.OnClickListener() {

@@ -1,6 +1,7 @@
 package com.example.phili.rifletracker;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,12 +23,15 @@ public class CurrentShooter extends AppCompatActivity {
     Button buttonSkip;
     TextView[] textScoreArray;
     TextView textScoreTotal;
+    Database db;
+    Bundle sendData;
     int currentScore;
     int currentPosition;
     int currentShooterPosition;
     public Vibrator vib;
     int currentRound;
     int[][] scorecard;
+    int numOfShooters;
 
 
     @Override
@@ -37,31 +41,32 @@ public class CurrentShooter extends AppCompatActivity {
 
         //Initialization
         vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        arrayOfShooters = new ArrayList<>();
-        textScoreArray  = new TextView[10];
-        textScoreTotal  = (TextView)findViewById(R.id.textScoreTotal);
-        buttonKill      = (Button)findViewById(R.id.buttonKill);
-        buttonMiss      = (Button)findViewById(R.id.buttonMiss);
-        buttonUndo      = (Button)findViewById(R.id.buttonUndo);
-        buttonSkip      = (Button)findViewById(R.id.buttonSkip);
-        currentScore    = 0;
+        textScoreArray = new TextView[10];
+        textScoreTotal = (TextView) findViewById(R.id.textScoreTotal);
+        buttonKill = (Button) findViewById(R.id.buttonKill);
+        buttonMiss = (Button) findViewById(R.id.buttonMiss);
+        buttonUndo = (Button) findViewById(R.id.buttonUndo);
+        buttonSkip = (Button) findViewById(R.id.buttonSkip);
+        currentScore = 0;
         currentPosition = 0;
-        currentRound    = 1;
+        currentRound = 1;
         currentShooterPosition = 0;
-        scorecard = new int[3][arrayOfShooters.size()];
+        numOfShooters = 0;
+        db = new Database(this);
 
         //Populating textScoreArray with the textScore textviews so they can be easily changed later
-        for(int i=0;i<textScoreArray.length;i++) {
+        for (int i = 0; i < textScoreArray.length; i++) {
             String name = "textScore" + Integer.toString(i);
-            textScoreArray[i] = (TextView)findViewById
+            textScoreArray[i] = (TextView) findViewById
                     (getResources().getIdentifier(name, "id", getPackageName()));
         }
-
 
         //Getting the variables from the last activity
         Bundle bundle = getIntent().getExtras();
         eventName = bundle.getString("eventName");
         arrayOfShooters = bundle.getStringArrayList("arrayOfShooters");
+
+        scorecard = new int[3][arrayOfShooters.size()];
 
         setTitle("Current shooter: " + arrayOfShooters.get(currentShooterPosition));
 
@@ -81,7 +86,7 @@ public class CurrentShooter extends AppCompatActivity {
                 //Last 2 shots warning = 2 vibrates, one long, one short
                 if (currentPosition == 8) {
                     //Vibrate twice to let them know last two are up
-                    long[] two = {0,300,100,150};
+                    long[] two = {0, 300, 100, 150};
                     vib.vibrate(two, -1);
                 }
 
@@ -105,7 +110,7 @@ public class CurrentShooter extends AppCompatActivity {
                 //Last 2 shots warning = 2 vibrates, both short
                 if (currentPosition == 8) {
                     //Vibrate twice to let them know last two are up
-                    long[] two = {0,150,100,150};
+                    long[] two = {0, 150, 100, 150};
                     vib.vibrate(two, -1);
                 }
 
@@ -122,7 +127,7 @@ public class CurrentShooter extends AppCompatActivity {
         buttonUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Undo
+                confirmUndo();
             }
         });
 
@@ -137,31 +142,40 @@ public class CurrentShooter extends AppCompatActivity {
 
     //Current shooter is finished, onto the next one.
     public void nextShooter() {
+        scorecard[currentRound - 1][currentShooterPosition] = currentScore;
         currentShooterPosition++;
 
         //If all shooters are done:
         if (currentShooterPosition == arrayOfShooters.size()) {
-            String send = "Round " + currentRound + " finished.\n" +
-                    arrayOfShooters.get(currentShooterPosition - 1) + "'s score: " + currentScore;
+            String send = "Round " + currentRound + " finished.\n\n";
+
+            //Show all scores for that round
+            for (int i = 0; i < arrayOfShooters.size(); i++) {
+                send += arrayOfShooters.get(i) + "'s score for this round: "
+                        + scorecard[currentRound - 1][i] + "\n";
+            }
 
             //Checking to see if all rounds are over
             if (currentRound == 3) {
-                //Done shooting
-                scoreDialog(send);
 
-                //Next activity
+                send += "\nShooting's over!";
+                //Done shooting
+                sendData = new Bundle();
+                sendData.putString("eventName", eventName);
+
+                displayDialog(send);
             } else {
                 //next round, keep shooting
                 currentShooterPosition = 0;
                 send += "\nNext up: " + arrayOfShooters.get(currentShooterPosition);
-                scoreDialog(send);
+                displayDialog("Score", send);
 
                 currentRound++;
                 currentScore = 0;
                 currentPosition = 0;
                 setTitle("Current shooter: " + arrayOfShooters.get(currentShooterPosition));
 
-                for (int i=0;i<textScoreArray.length;i++) {
+                for (int i = 0; i < textScoreArray.length; i++) {
                     textScoreArray[i].setText(getString(R.string.null_score));
                 }
                 textScoreTotal.setText(Integer.toString(currentScore));
@@ -169,25 +183,26 @@ public class CurrentShooter extends AppCompatActivity {
             }
 
         } else {
-            scoreDialog(arrayOfShooters.get(currentShooterPosition - 1) + "'s score: " +
+            displayDialog("Score", arrayOfShooters.get(currentShooterPosition - 1) + "'s score: " +
                     currentScore + "\nNext up: " + arrayOfShooters.get(currentShooterPosition));
 
             currentScore = 0;
             currentPosition = 0;
             setTitle("Current shooter: " + arrayOfShooters.get(currentShooterPosition));
 
-            for (int i=0;i<textScoreArray.length;i++) {
+            for (int i = 0; i < textScoreArray.length; i++) {
                 textScoreArray[i].setText(getString(R.string.null_score));
             }
             textScoreTotal.setText(Integer.toString(currentScore));
         }
     }
 
-    private void scoreDialog (String message) {
+    //Just a dismissable popup box with scores.
+    private void displayDialog(String title, String message) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
         // Setting Dialog Title
-        alertDialog.setTitle("Score");
+        alertDialog.setTitle(title);
 
         // Setting Dialog Message
         alertDialog.setMessage(message);
@@ -202,6 +217,38 @@ public class CurrentShooter extends AppCompatActivity {
         alertDialog.show();
     }
 
+    private void displayDialog(String message) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        // Setting Dialog Title
+        alertDialog.setTitle("Score");
+
+        // Setting Dialog Message
+        alertDialog.setMessage(message);
+
+        // Setting dismiss button
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                //Add current stuff to the database
+                for (int i = 0; i < arrayOfShooters.size(); i++) {
+                    boolean test = db.insert(arrayOfShooters.get(i), eventName, scorecard[0][i],
+                            scorecard[1][i], scorecard[2][i]);
+                }
+
+                //Next activity
+
+                //Bundle and send
+                Intent i = new Intent(getApplicationContext(), RecentEventView.class);
+                i.putExtras(sendData);
+                startActivity(i);
+                dialog.cancel();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    //Seeing id the user really wants to skip
     private void confirmSkip() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
@@ -220,14 +267,58 @@ public class CurrentShooter extends AppCompatActivity {
         });
 
         // Setting Positive "Yes" Button
-        alertDialog.setPositiveButton("YES",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
+        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
                 //Skipping...
-                //TODO: Skip stuff
+                scorecard[currentRound][currentShooterPosition] = 0;
 
                 //Toast to confirm
                 Toast.makeText(getApplicationContext(), arrayOfShooters.get(currentShooterPosition)
                         + " skipped", Toast.LENGTH_LONG).show();
+
+                nextShooter();
+            }
+        });
+
+        // Showing Alert Message
+        alertDialog.show();
+
+    }
+
+    //Seeing id the user really wants to skip
+    private void confirmUndo() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        // Setting Dialog Title
+        alertDialog.setTitle("Undo");
+
+        // Setting Dialog Message
+        alertDialog.setMessage("Are you sure you want to undo the last shot?");
+
+        // Setting Negative "NO" Button
+        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        // Setting Positive "Yes" Button
+        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                //Undoing...
+                if (currentPosition == 0) {
+                    Toast.makeText(getApplicationContext(), "Error: No more shots to undo.",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    if (textScoreArray[currentPosition - 1].getText().toString().charAt(0) == 'X') {
+                        currentScore--;
+                        textScoreTotal.setText(Integer.toString(currentScore));
+                    }
+                    currentPosition--;
+                    textScoreArray[currentPosition].setText(R.string.null_score);
+                    Toast.makeText(getApplicationContext(), "Successfully undone.",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 

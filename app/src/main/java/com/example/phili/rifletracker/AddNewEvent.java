@@ -22,8 +22,9 @@ public class AddNewEvent extends AppCompatActivity {
     public Button btnAddShooter;
     public ListView listOfShooters;
     public Button btnBegin;
-    public ArrayAdapter<String> adapter;
+    public ArrayAdapter<String> adapter = null;
     public ArrayList<String> arrayOfShooters;
+    Database db;
 
 
     @Override
@@ -39,19 +40,24 @@ public class AddNewEvent extends AppCompatActivity {
         listOfShooters   = (ListView) findViewById(R.id.listOfShooters);
         btnBegin         = (Button) findViewById(R.id.buttonBegin);
         arrayOfShooters  = new ArrayList<>();
+        db               = new Database(this);
 
 
         //Button event programming
-
         btnAddShooter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //As long as there's something in the Shooter field, add it to the arraylist
-                if (fieldShooterName.getText().toString().length() != 0) {
+                if (arrayOfShooters.size() >= 10) {
+                    Toast.makeText(getApplicationContext(),
+                            "Error: The shooter limit has been reached",
+                            Toast.LENGTH_LONG).show();
+                } else if (fieldShooterName.getText().toString().length() != 0) {
                     //Is it already in the list?
                     if (arrayOfShooters.contains(fieldShooterName.getText().toString())) {
                         //Display error
-                        Toast.makeText(getApplicationContext(), "Error: that name has already been added.",
+                        Toast.makeText(getApplicationContext(),
+                                "Error: That name has already been added",
                                 Toast.LENGTH_LONG).show();
                     } else {
                         //Then add the string to the ListView
@@ -61,7 +67,7 @@ public class AddNewEvent extends AppCompatActivity {
                         arrayOfShooters.add(fieldShooterName.getText().toString());
                         Collections.reverse(arrayOfShooters);
                         adapter = new ArrayAdapter<>
-                                (getApplicationContext(), R.layout.simple_list_item_1, arrayOfShooters);
+                            (getApplicationContext(), R.layout.simple_list_item_1, arrayOfShooters);
                         listOfShooters.setAdapter(adapter);
                         fieldShooterName.setText("");
                     }
@@ -76,20 +82,25 @@ public class AddNewEvent extends AppCompatActivity {
             public void onClick(View v) {
 
                 //Check to see if everything is good to go
-                if (fieldEventName.getText().toString().length() == 0 || adapter.getCount() == 0) {
+                if (fieldEventName.getText().toString().length() == 0 || arrayOfShooters.size() == 0) {
 
                     //Let them know there needs to be at least one shooter
                     Toast.makeText(getApplicationContext(),
-                            "Can't begin; make sure you set an event name and at least one shooter.",
+                            "Can't begin; make sure you set an event name and at least one shooter",
                             Toast.LENGTH_LONG).show();
 
-                } else if (true) {
+                } else if (db.eventExists(fieldEventName.getText().toString())) {
                     //Check to see if the database has events with the same name first
-
+                    Toast.makeText(getApplicationContext(),
+                        "Can't begin; that event name is already in use. Please pick another name.",
+                        Toast.LENGTH_LONG).show();
                 } else {
                     //Bundle the variables and send them to the next activity
                     Bundle bundle = new Bundle();
                     Intent i = new Intent(getApplicationContext(),CurrentShooter.class);
+
+                    //Before the shooters are sent. put them back in order of added, oldest firstNam
+                    Collections.reverse(arrayOfShooters);
 
                     bundle.putString("eventName", fieldEventName.getText().toString());
                     bundle.putStringArrayList("arrayOfShooters", arrayOfShooters);
