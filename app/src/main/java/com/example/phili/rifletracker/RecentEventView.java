@@ -1,5 +1,13 @@
 package com.example.phili.rifletracker;
 
+/* RecentEventView
+*
+* - Just receives an event name from a bundle, and fetches corresponding data from the database
+*   and adds it to various TextViews
+* - A button can return you to the main menu.
+*
+*/
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;

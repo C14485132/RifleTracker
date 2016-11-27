@@ -34,5 +34,6 @@
     <string name="round_1">R1:\u00A0\u00A0\u00A0</string>
     <string name="empty">\u00A0\u00A0</string>
     <string name="return_to_main_menu">Return to main menu</string>
+    <string name="delete_all_data">Delete All Data</string>
 
 </resources>

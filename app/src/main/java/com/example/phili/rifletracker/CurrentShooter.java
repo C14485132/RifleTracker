@@ -1,5 +1,21 @@
 package com.example.phili.rifletracker;
 
+/* CurrentShooter
+*
+* - CurrentShooter is how scores are entered in for the first time
+* - The shooters are sorted by the order they were entered in when in AddNewEvent
+* - The user can skip a shooter at any time
+* - Tally live updates, as well as score
+* - Pressing Kill or Miss will make it vibrate, long for kill, short for miss
+* - The phone will vibrate twice to indicate last 2 shots
+* - After all shots are done from that shooter for that round, their score and the next shooter's
+*   name are displayed.
+* - If it's the last shooter of the round, the round's results are displayed.
+* - After all rounds are done, the popup lets the user know, and them moves onto RecentEventView
+* - The data is added to the database, and the event name is passed to RecentEventView as a param
+*
+ */
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -127,7 +143,12 @@ public class CurrentShooter extends AppCompatActivity {
         buttonUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmUndo();
+                if (currentPosition != 0) {
+                    confirmUndo();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Unable to undo; nothing to undo",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -231,7 +252,7 @@ public class CurrentShooter extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 //Add current stuff to the database
                 for (int i = 0; i < arrayOfShooters.size(); i++) {
-                    boolean test = db.insert(arrayOfShooters.get(i), eventName, scorecard[0][i],
+                    db.insert(arrayOfShooters.get(i), eventName, scorecard[0][i],
                             scorecard[1][i], scorecard[2][i]);
                 }
 

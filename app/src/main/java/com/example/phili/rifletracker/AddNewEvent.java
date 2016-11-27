@@ -1,5 +1,19 @@
 package com.example.phili.rifletracker;
 
+/*Add New Event
+*
+* - Screen that allows the user to set up a new event.
+* - They enter the Event Name and the shooters
+* - The shooters are then checked to see if they're unique, and then added to the ListView if they are
+* - The user can tap a name to remove it
+* - Once Begin is selected, it checks to see if both Event Name and listView have something in them
+* - It checks to see if the event name is already in use and prompts the user to make a new name
+*   if it is in use
+* - The data is bundled up and send to CurrentShooter is everything is good
+*
+* */
+
+
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;

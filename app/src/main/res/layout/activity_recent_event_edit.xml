@@ -19,14 +19,6 @@
         android:layout_marginTop="33dp"
         android:id="@+id/textSelectShooter" />
 
-    <Button
-        android:text="@string/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignEnd="@+id/buttonEventEditRename"
-        android:id="@+id/buttonEventEditDelete" />
-
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,16 +31,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonEventEditRename"
-        android:layout_above="@+id/buttonEventEditDelete"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="49dp" />
+        android:layout_above="@+id/buttonEventEditScore"
+        android:layout_alignEnd="@+id/textSelectShooter"
+        android:layout_marginBottom="28dp" />
+
+    <Button
+        android:text="@string/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonEventEditDelete"
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/buttonEventEditScore"
+        android:layout_alignStart="@+id/buttonEventEditRename" />
 
     <Button
         android:text="@string/edit_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonEventEditScore"
-        android:layout_above="@+id/buttonEventEditDelete"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
