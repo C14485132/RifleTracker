@@ -29,6 +29,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     }
 
+    //Creates the table and all columns
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         try {
@@ -42,6 +43,7 @@ public class Database extends SQLiteOpenHelper {
         }
     }
 
+    //U[grades the table
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         //Drop, then recreate
@@ -50,6 +52,7 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
+    //Inserts a row into the table
     public void insert (String name, String event, int r1Score, int r2Score, int r3Score) {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -65,6 +68,7 @@ public class Database extends SQLiteOpenHelper {
         }
     }
 
+    //Check to see if there's a row where
     public boolean eventExists (String event) {
         Cursor alreadyHasEvent = this.getWritableDatabase().rawQuery("SELECT * FROM " +
                 TABLE_NAME + " WHERE "  + EVENT_NAME + "=\"" + event + "\"", null);
@@ -73,7 +77,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-
+    //Gets all rows with a certain event, and returns them
     public Cursor selectEvent (String eventName) {
         Cursor event = this.getWritableDatabase().rawQuery("SELECT " +SHOOTER_NAME+ ", " +RND_1 +
                 ", " +RND_2 + ", " + RND_3 + " FROM " + TABLE_NAME + " WHERE "  + EVENT_NAME +
@@ -82,6 +86,7 @@ public class Database extends SQLiteOpenHelper {
         return event;
     }
 
+    //Check to see if there's anything in the table
     public boolean dataExists () {
 
         Cursor c = this.getWritableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME, null);
@@ -89,8 +94,10 @@ public class Database extends SQLiteOpenHelper {
         return (c.getCount() !=0);
     }
 
+    //Returns a list of all the events in the table
     public ArrayList<String> listOfEvents() {
-        Cursor c = this.getWritableDatabase().rawQuery("SELECT distinct " + EVENT_NAME + " FROM " + TABLE_NAME, null);
+        Cursor c = this.getWritableDatabase().rawQuery("SELECT distinct " + EVENT_NAME + " FROM " +
+                TABLE_NAME, null);
 
         cString = new ArrayList<String>();
 
@@ -101,16 +108,22 @@ public class Database extends SQLiteOpenHelper {
         return cString;
     }
 
+    //Updates the table with a new event name
     public void renameEvent (String eventNameOld, String eventNameNew) {
-        this.getWritableDatabase().execSQL("UPDATE " + TABLE_NAME+ " SET " + EVENT_NAME + " = \"" + eventNameNew + "\" WHERE " + EVENT_NAME + " = \"" + eventNameOld + "\"");
+        this.getWritableDatabase().execSQL("UPDATE " + TABLE_NAME+ " SET " + EVENT_NAME + " = \"" +
+                eventNameNew + "\" WHERE " + EVENT_NAME + " = \"" + eventNameOld + "\"");
     }
 
+    //Deletes all events with a specific name
     public void deleteEvent (String event) {
-        this.getWritableDatabase().execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + EVENT_NAME + " = \"" + event + "\"");
+        this.getWritableDatabase().execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + EVENT_NAME +
+                " = \"" + event + "\"");
     }
 
+    //Gets all the names that are in a specific event
     public ArrayList<String> listOfNamesInEvent(String event) {
-        Cursor c = this.getWritableDatabase().rawQuery("SELECT distinct " + SHOOTER_NAME + " FROM " + TABLE_NAME + " WHERE " + EVENT_NAME + " = \"" + event + "\"", null);
+        Cursor c = this.getWritableDatabase().rawQuery("SELECT distinct " + SHOOTER_NAME + " FROM "
+                + TABLE_NAME + " WHERE " + EVENT_NAME + " = \"" + event + "\"", null);
 
         cString = new ArrayList<String>();
 
@@ -122,20 +135,34 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public void renameShooter (String shooterNameOld, String shooterNameNew) {
-        this.getWritableDatabase().execSQL("UPDATE " + TABLE_NAME + " SET " + SHOOTER_NAME + " = \"" + shooterNameNew + "\" WHERE " + SHOOTER_NAME + " = \"" + shooterNameOld + "\"");
+    //Renames all instances of shooterNameOld with shooterNameNew in a specific event
+    public void renameShooter (String shooterNameOld, String shooterNameNew, String eventName) {
+        this.getWritableDatabase().execSQL("UPDATE " + TABLE_NAME + " SET " + SHOOTER_NAME + " = \""
+                + shooterNameNew + "\" WHERE " + SHOOTER_NAME + " = \"" + shooterNameOld + "\" AND "
+                + EVENT_NAME + " = \"" + eventName);
     }
 
-    public void deleteShooter (String shooter) {
-        this.getWritableDatabase().execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + SHOOTER_NAME + " = \"" + shooter + "\"");
+    //Deletes a shooter from the db
+    public void deleteShooter (String shooter, String eventName) {
+        this.getWritableDatabase().execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + SHOOTER_NAME +
+                " = \"" + shooter + "\" AND " +
+                EVENT_NAME + " = \"" + eventName);
     }
 
-    public void editScores (int[] scores, String shooterName) {
-        this.getWritableDatabase().execSQL("UPDATE " + TABLE_NAME + " SET " + RND_1 + " = " + scores[0] + " WHERE " + SHOOTER_NAME + " = \"" + shooterName + "\"");
-        this.getWritableDatabase().execSQL("UPDATE " + TABLE_NAME + " SET " + RND_2 + " = " + scores[1] + " WHERE " + SHOOTER_NAME + " = \"" + shooterName + "\"");
-        this.getWritableDatabase().execSQL("UPDATE " + TABLE_NAME + " SET " + RND_3 + " = " + scores[2] + " WHERE " + SHOOTER_NAME + " = \"" + shooterName + "\"");
+    //Edit scores of shooter
+    public void editScores (int[] scores, String shooterName, String eventName) {
+        this.getWritableDatabase().execSQL("UPDATE " + TABLE_NAME + " SET " + RND_1 + " = " +
+                scores[0] + " WHERE " + SHOOTER_NAME + " = \"" + shooterName + "\" AND " +
+                EVENT_NAME + " = \"" + eventName);
+        this.getWritableDatabase().execSQL("UPDATE " + TABLE_NAME + " SET " + RND_2 + " = " +
+                scores[1] + " WHERE " + SHOOTER_NAME + " = \"" + shooterName + "\" AND " +
+                EVENT_NAME + " = \"" + eventName);
+        this.getWritableDatabase().execSQL("UPDATE " + TABLE_NAME + " SET " + RND_3 + " = " +
+                scores[2] + " WHERE " + SHOOTER_NAME + " = \"" + shooterName + "\" AND " +
+                EVENT_NAME + " = \"" + eventName);
     }
 
+    //Drop and recreate table
     public void deleteAllVals () {
         //Drop and recreate
         this.getWritableDatabase().execSQL("DROP TABLE " + TABLE_NAME);

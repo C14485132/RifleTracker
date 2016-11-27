@@ -453,7 +453,7 @@
         android:layout_alignStart="@+id/textRnd2S8" />
 
     <Button
-        android:text="@string/return_to_main_menu"
+        android:text="@string/return_str"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

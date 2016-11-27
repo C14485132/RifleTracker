@@ -8,7 +8,6 @@ package com.example.phili.rifletracker;
 *
 */
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -63,6 +62,7 @@ public class RecentEventView extends AppCompatActivity {
         textNameArray   = new TextView[noOfRowsReturned];
         textTotalArray  = new TextView[noOfRowsReturned];
 
+        //Populating the textView array with the scores and names
         for (int i = 0; i < noOfRowsReturned; i++) {
             textNameArray[i] = (TextView) findViewById
                     (getResources().getIdentifier("textNameS" + Integer.toString(i), "id",
@@ -78,6 +78,7 @@ public class RecentEventView extends AppCompatActivity {
             }
         }
 
+        //Filling the TextViews with data
         for(eventOutputCursor.moveToFirst(); !eventOutputCursor.isAfterLast();eventOutputCursor.moveToNext()) {
             textNameArray[currentIndex].setText(eventOutputCursor.getString(iName));
             textScoreArray[currentIndex][0].setText(Integer.toString(eventOutputCursor.getInt(iRnd[0])));
@@ -90,14 +91,14 @@ public class RecentEventView extends AppCompatActivity {
 
         setTitle("Event: " + eventName);
 
+        //Go back to the main menu
         btnMainMenu = (Button)findViewById(R.id.buttonMainMenu);
-        //Settings programming
+
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(i);
+                finish();
             }
         });
     }

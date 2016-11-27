@@ -1,11 +1,21 @@
 package com.example.phili.rifletracker;
 
+/* RecentEvents
+*
+* - Select an event from the spinner
+* - The user can either view , edit, rename or delete the event.
+* - Viewing it will pull up RecentEventView
+* - Renaming it will prompt the user to reenter a new name, and confirm or deny
+* - Deleting it will delete all records from the db, and remove it from the spinner
+* - Editing it will pull up RecentEventEdit, where they can edit all values within that event
+*
+*/
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +44,7 @@ public class RecentEvents extends AppCompatActivity {
         setContentView(R.layout.activity_recent_events);
         setTitle("Recent events");
 
+        //Initialization
         db = new Database(this);
         spinnerArray = new ArrayList<String>();
         buttonRecentEventsView = (Button)findViewById(R.id.buttonRecentEventsView);
@@ -52,7 +63,7 @@ public class RecentEvents extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setAdapter(adapter);
 
-        //Add new event programming
+        //Add view programming
         buttonRecentEventsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +77,7 @@ public class RecentEvents extends AppCompatActivity {
             }
         });
 
-        //Add new event programming
+        //Add edit programming
         buttonRecentEventsEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +91,7 @@ public class RecentEvents extends AppCompatActivity {
             }
         });
 
-        //Add new event programming
+        //Add rename programming
         buttonRecentEventsRename.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +100,7 @@ public class RecentEvents extends AppCompatActivity {
             }
         });
 
-        //Add new event programming
+        //Add delete programming
         buttonRecentEventsDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +109,7 @@ public class RecentEvents extends AppCompatActivity {
         });
     }
 
+    //Renaming the event with a dialog box
     public void renameEvent (final String eventName) {
         final AlertDialog.Builder alertDialogText = new AlertDialog.Builder(this);
         final EditText input = new EditText(this);
@@ -137,6 +149,7 @@ public class RecentEvents extends AppCompatActivity {
         alertDialogText.show();
     }
 
+    //Deleting event with dialog box
     public void deleteEvent (final String eventName) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 

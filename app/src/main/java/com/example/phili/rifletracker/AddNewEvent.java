@@ -121,10 +121,12 @@ public class AddNewEvent extends AppCompatActivity {
                     i.putExtras(bundle);
 
                     startActivity(i);
+                    finish();
                 }
             }
         });
 
+        //When an element is clicked in listView, delete the clicked elemeent
         listOfShooters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)

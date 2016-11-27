@@ -204,6 +204,7 @@ public class CurrentShooter extends AppCompatActivity {
             }
 
         } else {
+            //Continue to next shooter in the round
             displayDialog("Score", arrayOfShooters.get(currentShooterPosition - 1) + "'s score: " +
                     currentScore + "\nNext up: " + arrayOfShooters.get(currentShooterPosition));
 
@@ -211,6 +212,7 @@ public class CurrentShooter extends AppCompatActivity {
             currentPosition = 0;
             setTitle("Current shooter: " + arrayOfShooters.get(currentShooterPosition));
 
+            //Resetting the tally and score
             for (int i = 0; i < textScoreArray.length; i++) {
                 textScoreArray[i].setText(getString(R.string.null_score));
             }
@@ -257,12 +259,11 @@ public class CurrentShooter extends AppCompatActivity {
                 }
 
                 //Next activity
-
                 //Bundle and send
                 Intent i = new Intent(getApplicationContext(), RecentEventView.class);
                 i.putExtras(sendData);
                 startActivity(i);
-                dialog.cancel();
+                finish();
             }
         });
 

@@ -1,14 +1,16 @@
 package com.example.phili.rifletracker;
 
-/* MinActivity *?
+/* MinActivity
 * - Starts the app, and launches all the activities from buttons
-* - Creates a databse if none exists
+* - Creates a database if none exists by using Database's onCreate
  */
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,20 +23,24 @@ import java.io.FileWriter;
 
 public class MainActivity extends AppCompatActivity {
 
+    Button buttonDeleteAll;
+    Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(android.R.style.ThemeOverlay_Material);
+        setTheme(android.R.style.ThemeOverlay_Material_Light);
         setContentView(R.layout.activity_main);
 
         //Create database
-        final Database db = new Database(this);
+        db = new Database(this);
+        final boolean dataExists = db.dataExists();
+        db.close();
 
         Button btnRecentEvents = (Button)findViewById(R.id.buttonRecentEvents);
         Button btnAddNewEvent = (Button)findViewById(R.id.buttonAddNewEvent);
         Button btnExportEvent =  (Button)findViewById(R.id.buttonExportEvent);
-        Button btnSettings =  (Button)findViewById(R.id.buttonSettings);
+        buttonDeleteAll = (Button)findViewById(R.id.buttonDeleteAll);
 
         //Recent events programming
         btnRecentEvents.setOnClickListener(new View.OnClickListener() {
@@ -42,13 +48,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Launch RecentEvents
-                if (!db.dataExists()) {
-                    db.close();
+                if (!dataExists) {
                     Toast.makeText(getApplicationContext(), "Error: No events exist. Add a new " +
                             "event before selecting this.",
                             Toast.LENGTH_LONG).show();
                 } else {
-                    db.close();
                     Intent i = new Intent(getApplicationContext(), RecentEvents.class);
                     startActivity(i);
                 }
@@ -60,18 +64,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                db.close();
                 //Launch AddNewEvent
                 Intent i = new Intent(getApplicationContext(),AddNewEvent.class);
                 startActivity(i);
             }
         });
 
-        
+
         btnExportEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!db.dataExists()) {
+                if (dataExists) {
+                    //Referenced from: http://stackoverflow.com/questions/31367270/
                     File dbFile = getDatabasePath("Shooting.db");
                     File exportDir = new File(Environment.getExternalStorageDirectory(), "");
                     if (!exportDir.exists()) {
@@ -87,17 +91,19 @@ public class MainActivity extends AppCompatActivity {
                         csvWrite.writeNext(curCSV.getColumnNames());
                         while (curCSV.moveToNext()) {
                             //Which column you want to exprort
-                            String arrStr[] = {curCSV.getString(0), curCSV.getString(1), curCSV.getString(2), curCSV.getString(3), curCSV.getString(4)};
+                            String arrStr[] = {curCSV.getString(0), curCSV.getString(1),
+                                    curCSV.getString(2), curCSV.getString(3), curCSV.getString(4)};
                             csvWrite.writeNext(arrStr);
                         }
                         csvWrite.close();
                         curCSV.close();
 
-                        Toast.makeText(getApplicationContext(), "Export directory: " + Environment.getExternalStorageDirectory(),
+                        Toast.makeText(getApplicationContext(), "Export directory: " +
+                                Environment.getExternalStorageDirectory(),
                                 Toast.LENGTH_LONG).show();
                     } catch (Exception sqlEx) {
                         Log.e("MainActivity", sqlEx.getMessage(), sqlEx);
-                    }
+                    }//End reference
                 } else {
                     Toast.makeText(getApplicationContext(), "Error: No events exist. Add a new " +
                                     "event before selecting this.",
@@ -106,22 +112,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        //Settings programming
-        btnSettings.setOnClickListener(new View.OnClickListener() {
-
+        buttonDeleteAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.close();
-                Intent i = new Intent(getApplicationContext(),Settings.class);
-                startActivity(i);
+                confirmDelete();
             }
         });
 
-
-
     }
 
+    public void confirmDelete() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
+        // Setting Dialog Title
+        alertDialog.setTitle("Delete");
+
+        // Setting Dialog Message
+        alertDialog.setMessage("Are you sure you want to delete all events?");
+
+        // Setting Negative "NO" Button
+        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        // Setting Positive "Yes" Button
+        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                db = new Database(getApplicationContext());
+                db.deleteAllVals();
+                Toast.makeText(getApplicationContext(), "Deleted successfully!",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // Showing Alert Message
+        alertDialog.show();
+    }
 
 }
